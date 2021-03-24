@@ -1,0 +1,3 @@
+class Intro extends Stage {
+    
+}
