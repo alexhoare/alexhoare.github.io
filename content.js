@@ -60,13 +60,13 @@ var content =
         ],
     "world": 
         [
-//             {
-//                 "name" : "church",
-//                 "dimensions" : [7, 4, 4, 4],
-//                 "link" : "",
-//                 "hitbox" : [10, 9],
-//                 "visible" : false
-//             },
+            {
+                "name" : "church",
+                "dimensions" : [7, 4, 4, 4],
+                "link" : "",
+                "hitbox" : [10, 9],
+                "visible" : false
+            },
             {
                 "name" : "jif",
                 "dimensions" : [16, 4, 2, 3],
