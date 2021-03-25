@@ -66,6 +66,9 @@ class Game {
             case "ArrowUp":
                 this.player.jump(-16, this.stage.name == "country");
                 break;
+            case "ArrowDown":
+                this.player.slammingGround = true;
+                break;
             default:
                 console.log(e.key + " pressed!");
         }
@@ -80,6 +83,9 @@ class Game {
                 break;
             case "ArrowRight":
                 player.movingRight = false;
+                break;
+            case "ArrowDown":
+                this.player.slammingGround = false;
                 break;
             default:
                 console.log(e.key + " up");

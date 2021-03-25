@@ -23,6 +23,8 @@ class Player {
         this.animationSpacingCounter = 0;
 
         this.exists = true;
+
+        this.slammingGround = false;
     }
     // move is going to be called by game to use gravity
     move() {
@@ -79,6 +81,12 @@ class Player {
             // context.drawImage(image, this.x, this.y, this.widththis.height);
             return;
         }
+        if (this.slammingGround) {
+            var image = document.getElementById("playerLanding");
+            context.drawImage(image, Math.floor(this.x), this.y, this.width, this.height);
+            return;
+        }
+
 
 
 

@@ -158,16 +158,24 @@ class Stage {
                         }
                     }
                     else {
-                        if (isImage) {
-                            console.log("collided with image hitbox at " + this.images[imageIndex]["hitbox"]);
-                            this.images[imageIndex]["visible"] = true;
-                            // continue;
-                        }
                         if (player.y < tileY) {
+                            if (player.slammingGround) {
+                                if (isImage) {
+                                    console.log("collided with image hitbox at " + this.images[imageIndex]["hitbox"]);
+                                    this.images[imageIndex]["visible"] = true;
+                                }
+                                console.log("player slammed ground");
+                                // player.slammingGround = false;
+                            }
                             player.y += yOverlap;
                             player.stopJumping();
                         }
                         else {
+                            if (isImage) {
+                                console.log("collided with image hitbox at " + this.images[imageIndex]["hitbox"]);
+                                this.images[imageIndex]["visible"] = true;
+                                // continue;
+                            }
                             player.y -= yOverlap;
                         }
                         player.dy = 0;
