@@ -19,6 +19,14 @@ function rectOverlapsRect(x1, y1, width1, height1, x2, y2, width2, height2) {
     return (x1 < x2 + width2 && x1 + width1 > x2 && y1 < y2 + height2 && y1 + height1 > y2);
 }
 
+function pointInRect(pointX, pointY, x, y, width, height) {
+    var xInBounds = pointX >= x && pointX <= x + width;
+    console.log(xInBounds);
+    var yInBounds = pointY >= y && pointY <= y + height;
+    console.log(yInBounds);
+    return xInBounds && yInBounds;
+}
+
 class Stage {
     constructor(name) {
         this.name = name;
@@ -184,6 +192,18 @@ class Stage {
                 }
             }
         }
+    }
+    tileToURL(tileRow, tileCol) {
+        if (this.images == null) {
+            return "";
+        }
+        for (var i = 0; i < this.images.length; i++) {
+            var dimensions = this.images[i]["dimensions"];
+            if (pointInRect(tileCol, tileRow, dimensions[0], dimensions[1], dimensions[2], dimensions[3])) {
+                return this.images[i]["url"];
+            }
+        }
+        return "";
     }
 }
 

@@ -91,6 +91,31 @@ class Game {
                 console.log(e.key + " up");
         }
     }
+    mouseClick(x, y) {
+        // console.log("mouse clicked at " + x + ", " + y);
+
+        var tileRow, tileCol;
+
+        var windowHeight = document.documentElement.clientHeight - 20;
+        var windowWidth  = document.documentElement.clientWidth - 20;
+
+        var xScale = windowWidth / (tileWidth * 30), yScale = windowHeight / (tileHeight * 15);
+
+        x /= xScale;
+        y /= yScale;
+
+        tileRow = y / tileHeight;
+        tileCol = x / tileWidth;
+
+        console.log("click at " + tileCol + ", " + tileRow);
+
+        var url = this.stage.tileToURL(tileRow, tileCol);
+
+        if (url.length > 0) {
+            window.open(url);
+        }
+    }
+
     clearContext() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }

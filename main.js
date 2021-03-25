@@ -8,8 +8,9 @@ game = new Game(player, introStage);
 game.resize();
 game.draw();
 
-document.addEventListener("keydown", keydown, true);
-document.addEventListener("keyup", keyup, true);
+document.addEventListener("keydown", keydown, false);
+document.addEventListener("keyup", keyup, false);
+game.canvas.addEventListener("click", mouseClick, false);
 
 function keydown(e) {
     game.keydown(e);
@@ -17,6 +18,10 @@ function keydown(e) {
 
 function keyup(e) {
     game.keyup(e);
+}
+
+function mouseClick(e) {
+    game.mouseClick(e.pageX, e.pageY);
 }
 
 id = setInterval(gameLoop, 5);
