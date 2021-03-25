@@ -21,8 +21,8 @@ class Game {
         }
     }
     resize() {
-        var windowHeight = document.documentElement.clientHeight;
-        var windowWidth  = document.documentElement.clientWidth;
+        var windowHeight = document.documentElement.clientHeight - 20;
+        var windowWidth  = document.documentElement.clientWidth - 20;
         // console.log(windowHeight, windowWidth);
 
         this.canvas.width = windowWidth;
