@@ -1,6 +1,9 @@
 var playerSpriteFrames = 6;
 var spriteWidth = 80;
 
+var swimmingSpriteFrames = 5;
+var swimmingSpriteWidth = 130;
+
 class Player {
     constructor(x, y, width, height, state) {
         this.x = x;
@@ -18,6 +21,7 @@ class Player {
 
         this.animationState = "none";
         this.animationFrame = 0;
+        this.numAnimationFrames = playerSpriteFrames;
 
         this.animationSpacing = 10;
         this.animationSpacingCounter = 0;
@@ -25,6 +29,8 @@ class Player {
         this.exists = true;
 
         this.slammingGround = false;
+
+        this.inWater = false;
     }
     // move is going to be called by game to use gravity
     move() {
@@ -33,32 +39,29 @@ class Player {
         }
         if (this.movingLeft && !this.movingRight) {
             this.x -= 3;
-            if (this.animationState != "movingLeft") {
+            if (this.animationState != "movingLeft" && this.animationState != "swimmingLeft") {
                 this.animationFrame = 0;
                 this.animationSpacingCounter = 0;
             }
-            this.animationState = "movingLeft";
             if (this.animationSpacingCounter >= this.animationSpacing) {
                 this.animationSpacingCounter = 0;
-                this.animationFrame = (this.animationFrame + 1) % playerSpriteFrames;
+                this.animationFrame = (this.animationFrame + 1) % this.numAnimationFrames;
             }
             this.animationSpacingCounter += 1;
         }
         else if (this.movingRight && !this.movingLeft) {
             this.x += 3;
-            if (this.animationState != "movingRight") {
+            if (this.animationState != "movingRight" && this.animationState != "swimmingRight") {
                 this.animationFrame = 0;
                 this.animationSpacingCounter = 0;
             }
-            this.animationState = "movingRight";
             if (this.animationSpacingCounter >= this.animationSpacing) {
                 this.animationSpacingCounter = 0;
-                this.animationFrame = (this.animationFrame + 1) % playerSpriteFrames;
+                this.animationFrame = (this.animationFrame + 1) % this.numAnimationFrames;
             }
             this.animationSpacingCounter += 1;
         }
         else {
-            this.animationState = "none";
             this.animationFrame = 0;
             this.animationSpacingCounter = 0;
         }
@@ -87,16 +90,27 @@ class Player {
             return;
         }
 
-
-
-
         switch (this.animationState) {
+            case "swimmingRight":
+                var sx = swimmingSpriteWidth * this.animationFrame, sy = 0, sw = swimmingSpriteWidth, sh = 159;
+                var image = document.getElementById("playerSwimming");
+                context.drawImage(image, sx, sy, sw, sh, Math.floor(this.x), this.y, this.width, this.height);
+                break;
+            case "swimmingLeft":
+                var sx = swimmingSpriteWidth * this.animationFrame, sy = 0, sw = swimmingSpriteWidth, sh = 159;
+                var image = document.getElementById("playerSwimming");
+                var canvasWidth = 30 * tileWidth;
+                context.save();
+                context.translate(canvasWidth, 0);
+                context.scale(-1, 1);
+                context.drawImage(image, sx, sy, sw, sh, canvasWidth - Math.floor(this.x), this.y, -this.width, this.height);
+                context.restore();
+                break;
             case "movingRight":
                 var sx = spriteWidth * this.animationFrame, sy = 0, sw = spriteWidth, sh = 115;
                 var image = document.getElementById("playerMoving");
                 context.drawImage(image, sx, sy, sw, sh, Math.floor(this.x), this.y, this.width, this.height);
                 break;
-
             case "movingLeft":
                 var sx = spriteWidth * this.animationFrame, sy = 0, sw = spriteWidth, sh = 115;
                 var image = document.getElementById("playerMoving");

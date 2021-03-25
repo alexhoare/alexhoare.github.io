@@ -17,8 +17,51 @@ class Game {
 
         this.stage.draw(this.context);
         if (!this.personalAd) {
+            this.handlePlayerAnimationStates();
             this.player.draw(this.context);
         }
+    }
+    handlePlayerAnimationStates() {
+        if (this.player.inWater) {
+            this.player.animationSpacing = 30;
+            var oldState = this.player.animationState;
+            this.player.numAnimationFrames = swimmingSpriteFrames;
+            if (this.player.movingRight) {
+                this.player.animationState = "swimmingRight";
+            }
+            else if (this.player.movingLeft) {
+                this.player.animationState = "swimmingLeft";
+            }
+            else {
+                this.player.animationState = "none";
+            }
+
+            if (oldState != this.player.animationState) {
+                console.log("animation state changed");
+                this.player.animationFrame = 0;
+                this.player.animationSpacingCounter = 0;
+            }
+        }
+        else {
+            var oldState = this.player.animationState;
+            this.player.numAnimationFrames = playerSpriteFrames;
+            this.player.animationSpacing = 10;
+            if (this.player.movingRight) {
+                this.player.animationState = "movingRight";
+            }
+            else if (this.player.movingLeft) {
+                this.player.animationState = "movingLeft";
+            }
+            else {
+                this.player.animationState = "none";
+            }
+            if (oldState != this.player.animationState) {
+                console.log("animation state changed");
+                this.player.animationFrame = 0;
+                this.player.animationSpacingCounter = 0;
+            }
+        }
+
     }
     resize() {
         var windowHeight = document.documentElement.clientHeight - 20;
@@ -120,6 +163,7 @@ class Game {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
     incrementStage() {
+
         var stageIndex = stageCycle.indexOf(this.stage.name);
         console.log("stage switched to " + stageCycle[stageIndex + 1]);
         this.stage = new Stage(stageCycle[stageIndex + 1]);
@@ -135,6 +179,7 @@ class Game {
         this.player.y = this.stage.spawnPoint[1] * tileHeight;
         this.player.dy = 0;
 
+        this.player.inWater = this.stage.name == "country";
         if (this.stage.name == "country") {
             console.log("switched to country stage");
             this.player.ddy = 0.06;
@@ -145,6 +190,8 @@ class Game {
         }
     }
     decrementStage() {
+        this.player.inWater = this.stage.name == "country";
+
         var stageIndex = stageCycle.indexOf(this.stage.name);
         if (stageIndex == 0) {
             return;
