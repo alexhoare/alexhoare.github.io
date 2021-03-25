@@ -135,11 +135,6 @@ class Stage {
                 }
 
                 if (isImage || (collidableTiles.includes(this.tileMap[i][j]) && rectOverlapsRect(player.x, player.y, player.width, player.height, tileX, tileY, tileWidth, tileHeight))) {
-                    if (isImage) {
-                        console.log("collided with image hitbox at " + this.images[imageIndex]["hitbox"]);
-                        this.images[imageIndex]["visible"] = true;
-                        // continue;
-                    }
                     var xOverlap = 0;
                     if (player.x > tileX) {
                         xOverlap = player.x - (tileX + tileWidth);
@@ -163,6 +158,11 @@ class Stage {
                         }
                     }
                     else {
+                        if (isImage) {
+                            console.log("collided with image hitbox at " + this.images[imageIndex]["hitbox"]);
+                            this.images[imageIndex]["visible"] = true;
+                            // continue;
+                        }
                         if (player.y < tileY) {
                             player.y += yOverlap;
                             player.stopJumping();
