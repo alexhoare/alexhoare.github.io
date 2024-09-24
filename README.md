@@ -1,5 +1,7 @@
+![Preview](identity_project_thumbnail.jpg)
+
 ## Background
-This project was made for an English class to showcase "my identity." Students were given the option of designing a tri-fold poster board, writing a song, or anything their heart desired, so I made a video game. Please enjoy this small mario-esque game created from scratch using Javascript and the HTML Canvas element (I also drew all the images myself if you couldn't tell).
+This project was made for an English class to showcase "my identity." Students were given the option of designing a tri-fold poster board, writing a song, or anything their heart desired, so I made a video game. Please enjoy this small mario-esque game created from scratch using Javascript and the HTML Canvas element (I also drew most of the images myself if you couldn't tell).
 
 ## Game Mechanics
 Use the left and right arrow keys to run, the up arrow to jump (or swim upwards), and the down arrow to ground-pound on mystery boxes. To advance to the next level, you must reach the right side of the screen, hitting mystery boxes along the way. Each mystery box displays an image with a link you can click on! Falling off the map will respawn you at the left side of the screen.
